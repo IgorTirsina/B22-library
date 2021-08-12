@@ -1,6 +1,7 @@
 package com.library.step_definitions;
 
 
+import com.library.utilities.DBUtils;
 import com.library.utilities.Driver;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -12,9 +13,8 @@ import java.util.concurrent.TimeUnit;
 
 public class Hooks {
 
-    @Before()
+    @Before
     public void setUp(){
-        System.out.println("\tthis is coming from BEFORE");
         Driver.get().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         Driver.get().manage().window().maximize();
 
@@ -29,6 +29,16 @@ public class Hooks {
 
         Driver.closeDriver();
 
+    }
+
+    @Before ("@db")
+    public void connectDB() {
+        DBUtils.createConnection();
+    }
+
+    @After ("@db")
+    public void closeDB() {
+        DBUtils.destroy();
     }
 
 
