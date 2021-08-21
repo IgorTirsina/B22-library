@@ -176,8 +176,7 @@ public class DBUtils {
     }
     public static int getRowCount() throws Exception {
         resultSet.last();
-        int rowCount = resultSet.getRow();
-        return rowCount;
+        return resultSet.getRow();
     }
 
 
